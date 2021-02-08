@@ -39,4 +39,4 @@ export const reducer = (state, action) => {
 // helps initialize global state object to provide functionality for updating state by running it through custom reducer() ; conceptually similar to 'useState()' but more in-depth 
 export function useProductReducer(initialState) {
     return useReducer(reducer, initialState);
-  }
+}
