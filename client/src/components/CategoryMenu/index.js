@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { QUERY_CATEGORIES } from "../../utils/queries";
 // enables reading state data and dispatching updates to state
 import { useStoreContext } from "../../utils/GlobalState";
+import { idbPromise } from '../../utils/helpers';
 
 function CategoryMenu() {
   // calls custom hook to retrieve current state from global state object and uses dispatch method to update state
@@ -11,7 +12,7 @@ function CategoryMenu() {
   // destructures array from state
   const { categories } = state;
   // queries category data
-  const { data: categoryData } = useQuery(QUERY_CATEGORIES);
+  const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
   // notices 'categoryData' is no longer undefined and runs 'dispatch()' fn, setting category data to global state
   useEffect(() => {
@@ -22,8 +23,18 @@ function CategoryMenu() {
         type: UPDATE_CATEGORIES,
         categories: categoryData.categories
       });
+      categoryData.categories.forEach(category => {
+        idbPromise('categories', 'put', category);
+      });
+    } else if (!loading) {
+      idbPromise('categories', 'get').then(categories => {
+        dispatch({
+          type: UPDATE_CATEGORIES,
+          categories: categories
+        });
+      });
     }
-  }, [categoryData, dispatch]);
+  }, [categoryData, loading, dispatch]);
 
   // updates global state
   const handleClick = id => {
