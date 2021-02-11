@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { UPDATE_CATEGORIES, UPDATE_CURRENT_CATEGORY } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
+import { UPDATE_CATEGORIES, UPDATE_CURRENT_CATEGORY } from '../../utils/actions';
 import { QUERY_CATEGORIES } from "../../utils/queries";
 // enables reading state data and dispatching updates to state
 import { useStoreContext } from "../../utils/GlobalState";

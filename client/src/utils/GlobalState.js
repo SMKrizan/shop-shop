@@ -1,11 +1,11 @@
 // 'createContext' is used to instantiate a new Context object - it creates the container to hold global state data and functionality
-// 'useContext' will allow state created from 'createContext' fn to be used
+// 'useContext' will enable use of state created from 'createContext'
 import React, { createContext, useContext } from "react";
 import { useProductReducer } from './reducers';
 
 // creates new context object
 const StoreContext = createContext();
-// wraps application to make state data passed into it as a prop available to all other components, e.g. 'Consumers'
+// wraps application so that state data can be passed as props to all other components, e.g. 'Consumers'
 const { Provider } = StoreContext;
 
 // this custom provider fn will manage and update state using reducer
